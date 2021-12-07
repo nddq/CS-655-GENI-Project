@@ -11,7 +11,7 @@ import (
 const (
 	allChar  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	host     = "192.86.139.77"
-	port     = "80"
+	port     = "49152"
 	protocol = "tcp"
 )
 

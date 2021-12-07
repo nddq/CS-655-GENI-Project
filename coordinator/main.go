@@ -16,7 +16,7 @@ import (
 const (
 	allChar     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	host        = "localhost"
-	port        = "8080"
+	port        = "10001"
 	protocol    = "tcp"
 	maxPwd      = 380204031 // maximum number that represents the last 5 character password
 	maxJobBatch = 380

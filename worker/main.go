@@ -11,7 +11,7 @@ import (
 
 const (
 	allChar  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	port     = "8080"
+	port     = "54321"
 	protocol = "tcp"
 )
 

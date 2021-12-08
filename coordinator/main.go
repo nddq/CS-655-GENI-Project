@@ -16,24 +16,26 @@ import (
 const (
 	allChar     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	host        = "localhost"
-	port        = "8080"
+	port        = "54321"
 	protocol    = "tcp"
 	maxPwd      = 380204031 // maximum number that represents the last 5 character password
 	maxJobBatch = 380
+	fail        = "Unable to crack hash"
 )
 
 var HashCh chan string
+var resCh chan string
 
 type Coordinator struct {
-	mu             sync.Mutex
-	curHash        string
-	curJobBatch    int
-	workLeft       bool
-	workQueue      []string
-	maxWorker      int
-	curNoOfWorker  int
-	workerReported int
-	startedTime    time.Time
+	mu            sync.Mutex
+	curHash       string
+	curJobBatch   int
+	workLeft      bool
+	workQueue     []string
+	totalWorker   int
+	maxWorker     int
+	curNoOfWorker int
+	startedTime   time.Time
 }
 
 type ReportArgs struct {
@@ -96,7 +98,7 @@ func (c *Coordinator) Report(args *ReportArgs, reply *ReportReply) error {
 		c.workLeft = false
 		log.Printf("Time elapsed: %s\n", elapsed)
 		reply.Ack = true
-
+		resCh <- "Password is: " + args.Pwd + "\nTime elapsed: " + elapsed.String()
 		if !isEmpty(c.workQueue) {
 			var nextHash string
 			nextHash, c.workQueue = dequeue(c.workQueue)
@@ -109,6 +111,7 @@ func (c *Coordinator) Report(args *ReportArgs, reply *ReportReply) error {
 	} else {
 		if args.JobBatchNo == maxJobBatch {
 			log.Printf("Unable to crack hash\n")
+			resCh <- fail
 			if !isEmpty(c.workQueue) {
 				var nextHash string
 				nextHash, c.workQueue = dequeue(c.workQueue)
@@ -155,6 +158,8 @@ func getPwd(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Endpoint Hit: getPwd\n")
 	HashCh <- hash
+	res := <-resCh
+	fmt.Fprintln(w, res)
 }
 
 func handleAPIRequests() {
@@ -186,6 +191,7 @@ func main() {
 	c.curJobBatch = 0
 	c.workLeft = false
 	HashCh = make(chan string)
+	resCh = make(chan string)
 	rpc.Register(c)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 

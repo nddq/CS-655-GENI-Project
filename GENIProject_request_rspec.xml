@@ -1,100 +1,151 @@
 <rspec xmlns="http://www.geni.net/resources/rspec/3" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns:tour="http://www.protogeni.net/resources/rspec/ext/apt-tour/1" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.geni.net/resources/rspec/3    http://www.geni.net/resources/rspec/3/request.xsd" type="request">
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="master" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/server.svg"/>
-<routable_control_ip xmlns="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3">
-
-
-
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="coordinator" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc5" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82687" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/server.svg"/>
+    <routable_control_ip xmlns="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pcvm5-11.genirack.nyu.edu" port="22" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pcvm5-11.genirack.nyu.edu" port="22" username="matta"/>
+      <login authentication="ssh-keys" hostname="pcvm5-11.genirack.nyu.edu" port="22" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pcvm5-11.genirack.nyu.edu" port="22" username="fahadf"/>
+      <emulab:console server="pcvm5-11.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
 </services>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-1">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.1.11" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-3">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.2.11" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-5">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.3.11" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-
-
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-11">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.4.11" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-13">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.5.11" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-
-
-
-</node>
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-1" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3"/>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-0">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.1.1" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-</node>
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-2" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3"/>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-2">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.2.1" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-</node>
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-3" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3"/>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-4">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.3.1" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-</node>
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-4" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3"/>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-10">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.4.1" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-</node>
-<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-5" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm">
-<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
-<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="default-vm"/>
-<services xmlns="http://www.geni.net/resources/rspec/3">
-
-
+    <interface client_id="interface-1" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82695" mac_address="02967a1e3e9c">
+      <ip address="10.10.1.11" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <interface client_id="interface-3" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82698" mac_address="02a03fa29108">
+      <ip address="10.10.2.11" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <interface client_id="interface-5" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82701" mac_address="023e1244bb98">
+      <ip address="10.10.3.11" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <interface client_id="interface-11" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82704" mac_address="02d7582c6f26">
+      <ip address="10.10.4.11" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <interface client_id="interface-13" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:lo0" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82707" mac_address="02f9751e5db3">
+      <ip address="10.10.5.11" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm5-11" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="master.GENIProject.ch-geni-net.genirack.nyu.edu" ipv4="192.86.139.77"/>
+  </node>
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="worker-1" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc4" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82690" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pc4.genirack.nyu.edu" port="28810" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pc4.genirack.nyu.edu" port="28810" username="matta"/>
+      <login authentication="ssh-keys" hostname="pc4.genirack.nyu.edu" port="28810" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pc4.genirack.nyu.edu" port="28810" username="fahadf"/>
+      <emulab:console server="pc4.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
 </services>
-<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-12">
-<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.10.5.1" type="ipv4" netmask="255.255.255.0"/>
-</interface>
-</node>
-<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-0">
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-0"/>
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-1"/>
-<component_manager xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
-</link>
-<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-1">
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-2"/>
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-3"/>
-<component_manager xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
-</link>
-<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-2">
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-4"/>
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-5"/>
-<component_manager xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
-</link>
-<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-5">
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-10"/>
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-11"/>
-<component_manager xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
-</link>
-<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-6">
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-12"/>
-<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-13"/>
-<component_manager xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
-</link>
+    <interface client_id="interface-0" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc4:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82694" mac_address="027d0e99cd7c">
+      <ip address="10.10.1.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm4-15" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="worker-1.GENIProject.ch-geni-net.genirack.nyu.edu"/>
+  </node>
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="worker-2" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82686" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pc3.genirack.nyu.edu" port="28810" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pc3.genirack.nyu.edu" port="28810" username="matta"/>
+      <login authentication="ssh-keys" hostname="pc3.genirack.nyu.edu" port="28810" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pc3.genirack.nyu.edu" port="28810" username="fahadf"/>
+      <emulab:console server="pc3.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
+</services>
+    <interface client_id="interface-2" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc3:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82697" mac_address="02cd87dc049e">
+      <ip address="10.10.2.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm3-18" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="worker-2.GENIProject.ch-geni-net.genirack.nyu.edu"/>
+  </node>
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="worker-3" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82691" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pc2.genirack.nyu.edu" port="28810" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pc2.genirack.nyu.edu" port="28810" username="matta"/>
+      <login authentication="ssh-keys" hostname="pc2.genirack.nyu.edu" port="28810" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pc2.genirack.nyu.edu" port="28810" username="fahadf"/>
+      <emulab:console server="pc2.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
+</services>
+    <interface client_id="interface-4" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc2:eth2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82700" mac_address="02b09251bfac">
+      <ip address="10.10.3.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm2-1" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="worker-3.GENIProject.ch-geni-net.genirack.nyu.edu"/>
+  </node>
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="worker-4" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc1" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82689" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pc1.genirack.nyu.edu" port="28810" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pc1.genirack.nyu.edu" port="28810" username="matta"/>
+      <login authentication="ssh-keys" hostname="pc1.genirack.nyu.edu" port="28810" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pc1.genirack.nyu.edu" port="28810" username="fahadf"/>
+      <emulab:console server="pc1.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
+</services>
+    <interface client_id="interface-10" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc1:eth2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82703" mac_address="029104bac795">
+      <ip address="10.10.4.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm1-11" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="worker-4.GENIProject.ch-geni-net.genirack.nyu.edu"/>
+  </node>
+<node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="worker-5" component_manager_id="urn:publicid:IDN+genirack.nyu.edu+authority+cm" component_id="urn:publicid:IDN+genirack.nyu.edu+node+pc5" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82688" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://www.emulab.net/protogeni/jacks-stable/images/default.svg"/>
+    <sliver_type name="default-vm"/>
+    <services>
+      <login authentication="ssh-keys" hostname="pc5.genirack.nyu.edu" port="28811" username="nddq"/>
+      <login authentication="ssh-keys" hostname="pc5.genirack.nyu.edu" port="28811" username="matta"/>
+      <login authentication="ssh-keys" hostname="pc5.genirack.nyu.edu" port="28811" username="zhangzs"/>
+      <login authentication="ssh-keys" hostname="pc5.genirack.nyu.edu" port="28811" username="fahadf"/>
+      <emulab:console server="pc5.genirack.nyu.edu"/>
+      <emulab:imageable available="true"/>
+    <install xmlns="http://www.geni.net/resources/rspec/3" url="https://go.dev/dl/go1.17.4.linux-amd64.tar.gz" install_path="/local"/>
+</services>
+    <interface client_id="interface-12" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:lo0" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82706" mac_address="025d09dbe8a3">
+      <ip address="10.10.5.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm5-19" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="worker-5.GENIProject.ch-geni-net.genirack.nyu.edu"/>
+  </node>
+<link client_id="link-0" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82693" vlantag="309">
+    <interface_ref client_id="interface-0" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc4:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82694"/>
+    <interface_ref client_id="interface-1" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82695"/>
+    <component_manager name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
+  </link>
+<link client_id="link-1" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82696" vlantag="308">
+    <interface_ref client_id="interface-2" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc3:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82697"/>
+    <interface_ref client_id="interface-3" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82698"/>
+    <component_manager name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
+  </link>
+<link client_id="link-2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82699" vlantag="303">
+    <interface_ref client_id="interface-4" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc2:eth2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82700"/>
+    <interface_ref client_id="interface-5" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82701"/>
+    <component_manager name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
+  </link>
+<link client_id="link-5" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82702" vlantag="282">
+    <interface_ref client_id="interface-10" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc1:eth2" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82703"/>
+    <interface_ref client_id="interface-11" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:eth3" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82704"/>
+    <component_manager name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
+  </link>
+<link client_id="link-6" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82705">
+    <interface_ref client_id="interface-12" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:lo0" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82706"/>
+    <interface_ref client_id="interface-13" component_id="urn:publicid:IDN+genirack.nyu.edu+interface+pc5:lo0" sliver_id="urn:publicid:IDN+genirack.nyu.edu+sliver+82707"/>
+    <component_manager name="urn:publicid:IDN+genirack.nyu.edu+authority+cm"/>
+  </link>
+<rs:site_info xmlns:rs="http://www.protogeni.net/resources/rspec/ext/site-info/1">
+    <rs:location country="" latitude="40.729371" longitude="-73.995906"/>
+  </rs:site_info>
 </rspec>

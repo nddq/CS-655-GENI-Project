@@ -16,7 +16,7 @@ import (
 const (
 	allChar     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	host        = "localhost"
-	port        = "49152"
+	port        = "8080"
 	protocol    = "tcp"
 	maxPwd      = 380204031 // maximum number that represents the last 5 character password
 	maxJobBatch = 380
@@ -24,7 +24,7 @@ const (
 
 var HashCh chan string
 
-type Master struct {
+type Coordinator struct {
 	mu             sync.Mutex
 	curHash        string
 	curJobBatch    int
@@ -70,52 +70,53 @@ func isEmpty(queue []string) bool {
 	return len(queue) == 0
 }
 
-func (m *Master) NewHashToCrack(hash string) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
+func (c *Coordinator) NewHashToCrack(hash string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
-	if m.workLeft {
+	if c.workLeft {
 		log.Printf("Working on a diffent hash. Enqueuing new hash %s\n", hash)
-		m.workQueue = enqueue(m.workQueue, hash)
+		c.workQueue = enqueue(c.workQueue, hash)
 	} else {
-		m.startedTime = time.Now()
-		m.curHash = hash
-		m.curJobBatch = 0
-		m.workLeft = true
+		c.startedTime = time.Now()
+		c.curHash = hash
+		c.curJobBatch = 0
+		c.workLeft = true
 	}
+	return nil
 }
 
-func (m *Master) Report(args *ReportArgs, reply *ReportReply) error {
+func (c *Coordinator) Report(args *ReportArgs, reply *ReportReply) error {
 	log.Printf("Job batch number %d reported\n", args.JobBatchNo)
-	m.mu.Lock()
-	defer m.mu.Unlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if args.PwdFound {
 		log.Printf("Password found in job batch %d : %s\n", args.JobBatchNo, args.Pwd)
-		elapsed := time.Since(m.startedTime)
-		m.workLeft = false
+		elapsed := time.Since(c.startedTime)
+		c.workLeft = false
 		log.Printf("Time elapsed: %s\n", elapsed)
 		reply.Ack = true
 
-		if !isEmpty(m.workQueue) {
+		if !isEmpty(c.workQueue) {
 			var nextHash string
-			nextHash, m.workQueue = dequeue(m.workQueue)
+			nextHash, c.workQueue = dequeue(c.workQueue)
 			log.Printf("Working on a next hash %s\n", nextHash)
-			m.startedTime = time.Now()
-			m.curHash = nextHash
-			m.curJobBatch = 0
-			m.workLeft = true
+			c.startedTime = time.Now()
+			c.curHash = nextHash
+			c.curJobBatch = 0
+			c.workLeft = true
 		}
 	} else {
 		if args.JobBatchNo == maxJobBatch {
 			log.Printf("Unable to crack hash\n")
-			if !isEmpty(m.workQueue) {
+			if !isEmpty(c.workQueue) {
 				var nextHash string
-				nextHash, m.workQueue = dequeue(m.workQueue)
+				nextHash, c.workQueue = dequeue(c.workQueue)
 				log.Printf("Working on a next hash %s\n", nextHash)
-				m.startedTime = time.Now()
-				m.curHash = nextHash
-				m.curJobBatch = 0
-				m.workLeft = true
+				c.startedTime = time.Now()
+				c.curHash = nextHash
+				c.curJobBatch = 0
+				c.workLeft = true
 			}
 		}
 		reply.Ack = true
@@ -123,23 +124,23 @@ func (m *Master) Report(args *ReportArgs, reply *ReportReply) error {
 	return nil
 }
 
-func (m *Master) GetWork(args *GetWorkArgs, reply *GetWorkReply) error {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	if !m.workLeft {
+func (c *Coordinator) GetWork(args *GetWorkArgs, reply *GetWorkReply) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if !c.workLeft {
 		reply.WorkLeft = false
 		return nil
 	}
-	reply.LowerBound = int64(1000000 * m.curJobBatch)
+	reply.LowerBound = int64(1000000 * c.curJobBatch)
 	reply.UpperBound = reply.LowerBound + (1000000 - 1)
-	reply.JobBatchNo = m.curJobBatch
+	reply.JobBatchNo = c.curJobBatch
 	reply.WorkLeft = true
-	reply.WantedHash = m.curHash
+	reply.WantedHash = c.curHash
 	if reply.UpperBound > maxPwd {
 		reply.UpperBound = maxPwd
-		m.workLeft = false
+		c.workLeft = false
 	}
-	m.curJobBatch++
+	c.curJobBatch++
 	return nil
 }
 
@@ -167,12 +168,12 @@ func handleAPIRequests() {
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
 
-func (m *Master) run() {
+func (c *Coordinator) run() {
 	for {
 		select {
 		case hash := <-HashCh:
 			log.Printf("Received hash to crack : %s", hash)
-			m.NewHashToCrack(hash)
+			c.NewHashToCrack(hash)
 		default:
 			continue
 		}
@@ -181,14 +182,14 @@ func (m *Master) run() {
 }
 
 func main() {
-	master := new(Master)
-	master.curJobBatch = 0
-	master.workLeft = false
+	c := new(Coordinator)
+	c.curJobBatch = 0
+	c.workLeft = false
 	HashCh = make(chan string)
-	rpc.Register(master)
+	rpc.Register(c)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 
-	go master.run()
+	go c.run()
 
 	go handleAPIRequests()
 
@@ -197,7 +198,7 @@ func main() {
 	listener, err := net.ListenTCP(protocol, tcpAddr)
 	checkError(err)
 
-	log.Printf("Starting master's server on %s:%s", host, port)
+	log.Printf("Starting coordinator's server on %s:%s", host, port)
 
 	for {
 		conn, err := listener.Accept()

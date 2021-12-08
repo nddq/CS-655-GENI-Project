@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/rpc"
+	"os"
 	"time"
 )
 
 const (
 	allChar  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	host     = "192.86.139.77"
-	port     = "49152"
+	port     = "8080"
 	protocol = "tcp"
 )
 
@@ -61,6 +61,11 @@ type GetWorkReply struct {
 }
 
 func main() {
+	if len(os.Args) != 2 {
+		fmt.Fprintf(os.Stderr, "Missing args\n")
+		os.Exit(1)
+	}
+	host := os.Args[1]
 
 	client, err := rpc.Dial(protocol, (host + ":" + port))
 	if err != nil {

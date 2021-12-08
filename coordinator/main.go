@@ -193,7 +193,7 @@ func main() {
 
 	go handleAPIRequests()
 
-	tcpAddr, err := net.ResolveTCPAddr(protocol, (host + ":" + port))
+	tcpAddr, err := net.ResolveTCPAddr(protocol, (":" + port))
 	checkError(err)
 	listener, err := net.ListenTCP(protocol, tcpAddr)
 	checkError(err)

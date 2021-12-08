@@ -74,7 +74,7 @@ func main() {
 	for {
 		args := GetWorkArgs{}
 		reply := GetWorkReply{}
-		err = client.Call("Master.GetWork", args, &reply)
+		err = client.Call("Coordinator.GetWork", args, &reply)
 		if err != nil {
 			log.Fatal("GetWork error:", err)
 		}
@@ -82,7 +82,7 @@ func main() {
 			fmt.Printf("No work left\n")
 			time.Sleep(10 * time.Second)
 			fmt.Printf("Attempting to get work...\n")
-			err = client.Call("Master.GetWork", args, &reply)
+			err = client.Call("Coordinator.GetWork", args, &reply)
 		}
 		fmt.Printf("Got work with lower bound %s and upper bound %s\n", convertToPwd(reply.LowerBound), convertToPwd(reply.UpperBound))
 		pwdFound := false
@@ -102,7 +102,7 @@ func main() {
 		reportArgs.PwdFound = pwdFound
 		reportArgs.Pwd = actualPwd
 		reportArgs.JobBatchNo = reply.JobBatchNo
-		err = client.Call("Master.Report", reportArgs, &reportReply)
+		err = client.Call("Coordinator.Report", reportArgs, &reportReply)
 		if err != nil || !reportReply.Ack {
 			log.Fatal("Report error:", err)
 		}

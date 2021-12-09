@@ -42,7 +42,7 @@
 ##### Analysis
 - Graph that shows the time it takes to crack the hash of password 'zzzzz' against the number of workers used.
 ![Image of Architecture](https://i.imgur.com/XG43G97.png)
-- It's interesting to see as we add more worker nodes, the time it takes to crack the hash decrese exponentially.
+- It's interesting to see as we add more worker nodes, the time it takes to crack the hash decrease exponentially.
 
 ### Conclusion
 - The program is able to crack more than 300 millions 5 character passwords in a short amount of time. Given sufficient computing power and more worker nodes, any MD5 hash can be crack within a reasonable amount of time, showing how weak it is and why most systems nowaday don't use it.
